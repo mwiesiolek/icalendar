@@ -93,6 +93,7 @@ public class Main {
             for (final var header : cmd.getOptionValues(HEADERS.getLongKey())) {
                 final var values = Arrays.stream(record.get(header).split(","))
                         .map(String::trim)
+                        .filter(s -> !s.isBlank())
                         .collect(Collectors.toList());
                 for (String value : values) {
 
