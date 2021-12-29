@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "6.3.0"
+}
+
+group 'pl.mwiesiolek'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes "Main-Class": "pl.mwiesiolek.icalendar.Main"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    implementation(
+            'org.apache.commons:commons-csv:1.9.0',
+            'commons-cli:commons-cli:1.5.0'
+    )
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
